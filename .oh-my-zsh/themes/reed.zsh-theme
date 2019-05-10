@@ -20,4 +20,6 @@ git_custom_status() {
   fi
 }
 
-PROMPT='$(git_custom_status)%{$fg[cyan]%}[%~%  %{$fg[green]%} %n@%M %{$fg[cyan]%}]%{$reset_color%}%B$%b '
+PROMPT='$(git_custom_status)%{$fg[cyan]%}[%~% %{$fg[green]%} %n@%M %{$fg[cyan]%}]%{$reset_color%}%B$%b '
+
+#${${:-/${(j:/:)${(M)${(s:/:)${(D)PWD:h}}#(|.)[^.]}}/${PWD:t}}//\/~/\~}

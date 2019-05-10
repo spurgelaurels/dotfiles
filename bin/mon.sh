@@ -1,9 +1,18 @@
 #!/bin/bash
-#exec 1> >(logger -s -t $(basename $0)) 2>&1
+#touch /tmp/toots
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+export DISPLAY=:0.0
+position=left
+
+
 
 intern=eDP-1
-extern=HDMI-2
+#extern=DP-2
+extern=`xrandr --listmonitors | grep "^ 1" | awk '{print $4}'`
 
+
+#extern=HDMI-2
+polybar_config=~/.config/polybar/polybar_top
 
 function kill_poly()
 {
@@ -18,8 +27,7 @@ function laptop()
 {
   kill_poly
   xrandr --output "$extern" --off --output "$intern" --auto
-  MONITOR=eDP-1 polybar top -c ~/.config/polybar/polybar_xrdb &
-  #wal -t -i Pictures/Wallpapers
+  MONITOR=${intern} polybar top -c ${polybar_config} &
 }
 
 
@@ -27,10 +35,9 @@ function dual()
 {
   kill_poly
   xrandr --output "$intern" --primary --auto
-  xrandr --output "$extern" --right-of "$intern" --auto
-  MONITOR=eDP-1 polybar top -c ~/.config/polybar/polybar_xrdb &
-  MONITOR=HDMI-2 polybar top -c ~/.config/polybar/polybar_xrdb &
-  #wal -t -i Pictures/Wallpapers
+  xrandr --output "$extern" --"$position"-of "$intern" --auto
+  MONITOR=${intern} polybar top -c ${polybar_config} &
+  MONITOR=${extern} polybar top -c ${polybar_config} &
   }
 
 function external()
@@ -39,17 +46,16 @@ function external()
   echo "lid closed, external detected"
   xrandr --output "$extern" --primary --auto
   xrandr --output "$intern" --off
-  MONITOR=HDMI-2 polybar top -c ~/.config/polybar/polybar_xrdb &
-  #wal -t -i Pictures/Wallpapers
+  MONITOR=${extern} polybar top -c ${polybar_config} &
 }
-
 
 
 if xrandr | grep "$extern disconnected"; then
   echo "external disconnected, running laptop()"
   laptop
 
-elif grep "closed" /proc/acpi/button/lid/LID/state ; then
+
+elif grep "closed" /proc/acpi/button/lid/LID0/state ; then
   echo "Lid closed, external assumed"
   external
 
@@ -57,4 +63,10 @@ else
   echo "configured external is not disconnected, and lid is open.  assuming both!"
   dual 
 fi
+
+
+
+
+
+
 
