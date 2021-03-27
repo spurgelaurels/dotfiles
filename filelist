@@ -11,4 +11,5 @@ bin
 .config/kitty
 .config/i3
 .config/ncmpcpp
-.oh-my-zsh
+.oh-my-zsh/themes/agrat.zsh-theme
+.oh-my-zsh/themes/daphne.zsh-theme

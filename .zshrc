@@ -28,9 +28,6 @@ SAVEHIST=100000
 
 
 # aliases
-alias gcal="gcalcli --calendar 'Daphne Reed'"
-alias paws="/vidyard/DevTools/binaries/adfs/adfs_auth_linux_1.3"
-alias raws="ruby /vidyard/DevTools/scripts/rds/adfs_auth.rb --output=console --username=dreed"
 alias icat="kitty +kitten icat"
 #alias ssh="kitty +kitten ssh"
 alias lsd="ls -1t | head -5"
