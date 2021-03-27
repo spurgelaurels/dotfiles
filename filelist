@@ -1,0 +1,14 @@
+.conkyrc
+.screenrc
+.tmux.conf
+.vimrc
+.zshrc
+.ncmpcpp
+bin
+.config/bspwm
+.config/polybar
+.config/sxhkd
+.config/kitty
+.config/i3
+.config/ncmpcpp
+.oh-my-zsh
